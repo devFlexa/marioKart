@@ -97,7 +97,7 @@ function playRaceEngine(character1, character2) {
         character2.MANOBRABILIDADE
       );
     }
-
+    //js expressions
     if (block === "CONFRONTO") {
       let powerResult1 = diceResult1 + character1.PODER;
       let powerResult2 = diceResult2 + character2.PODER;
@@ -122,6 +122,7 @@ function playRaceEngine(character1, character2) {
         character1.PONTOS--;
       }
 
+      //ternario
       console.log(
         powerResult2 === powerResult1
           ? "Confronto empatado! Nenhum ponto foi perdido"
@@ -154,6 +155,7 @@ function declareWinner(character1, character2) {
   else console.log("A corrida terminou em empate");
 }
 
+//autoinvoke
 (function main() {
   console.log(
     `🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando...\n`
