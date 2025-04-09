@@ -158,6 +158,9 @@ function playRaceEngine(character1, character2) {
             `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
           );
         }
+        let turboBonus = turbo();
+        console.log(`${character2.NOME} ganhou bônus de ${turboBonus} com o turbo! 🚀`);
+        character2[turboBonus]++;
       }
 
       //ternario
