@@ -142,6 +142,7 @@ function playRaceEngine(character1, character2) {
         }
         //desafio turbo
         let turboBonus = turbo();
+        console.log(`${character1.NOME} ganhou bônus de ${turboBonus} com o turbo! 🚀`);
         character1[turboBonus]++;
       }
 
