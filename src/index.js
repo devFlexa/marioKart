@@ -4,6 +4,7 @@ const player1 = {
   MANOBRABILIDADE: 3,
   PODER: 3,
   PONTOS: 0,
+  ITEM: "",
 };
 
 const player2 = {
@@ -12,6 +13,7 @@ const player2 = {
   MANOBRABILIDADE: 4,
   PODER: 4,
   PONTOS: 0,
+  ITEM: "",
 };
 
 function rollDice() {
@@ -42,6 +44,21 @@ function logRollResult(characterName, block, diceResult, attribute) {
       diceResult + attribute
     }`
   );
+}
+
+function sortearItem() {
+  let random = Math.random();
+  let result;
+
+  result = random > 0.5 ? "Bomba" : "Casco";
+
+  return result;
+}
+
+function turbo() {
+  const atributos = ["Velocidade", "Manobrabilidade", "Poder"];
+  const index = Math.floor(Math.random() * atributos.length);
+  return atributos[index];
 }
 
 function playRaceEngine(character1, character2) {
@@ -99,6 +116,9 @@ function playRaceEngine(character1, character2) {
     }
     //js expressions
     if (block === "CONFRONTO") {
+      character1.ITEM = sortearItem();
+      character2.ITEM = sortearItem();
+
       let powerResult1 = diceResult1 + character1.PODER;
       let powerResult2 = diceResult2 + character2.PODER;
 
@@ -109,17 +129,34 @@ function playRaceEngine(character1, character2) {
       logRollResult(character2.NOME, "poder", diceResult2, character2.PODER);
 
       if (powerResult1 > powerResult2 && character2.PONTOS > 0) {
-        console.log(
-          `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
-        );
-        character2.PONTOS--;
+        if (character1.ITEM === "Bomba") {
+          character2.PONTOS -= 2;
+          console.log(
+            `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 2 pontos 🐢`
+          );
+        } else {
+          character2.PONTOS--;
+          console.log(
+            `${character1.NOME} venceu o confronto! ${character2.NOME} perdeu 1 ponto 🐢`
+          );
+        }
+        //desafio turbo
+        let turboBonus = turbo();
+        character1[turboBonus]++;
       }
 
       if (powerResult2 > powerResult1 && character1.PONTOS > 0) {
-        console.log(
-          `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
-        );
-        character1.PONTOS--;
+        if (character2.ITEM === "Bomba") {
+          character1.PONTOS -= 2;
+          console.log(
+            `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 2 pontos 🐢`
+          );
+        } else {
+          character1.PONTOS--;
+          console.log(
+            `${character2.NOME} venceu o confronto! ${character1.NOME} perdeu 1 ponto 🐢`
+          );
+        }
       }
 
       //ternario
@@ -158,6 +195,7 @@ function declareWinner(character1, character2) {
 //autoinvoke
 (function main() {
   console.log(
+    //windows + . = icons
     `🏁🚨 Corrida entre ${player1.NOME} e ${player2.NOME} começando...\n`
   );
 
